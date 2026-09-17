@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eastern Sierra Command Center</title>
+
+<style>
+
+body{
+    background:#061018;
+    color:#00ff99;
+    font-family:Consolas, monospace;
+    margin:0;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:300px 1fr;
+    gap:20px;
+}
+
+.sidebar{
+    border:1px solid #00ff99;
+    border-radius:10px;
+    padding:15px;
+}
+
+.main{
+    border:1px solid #00ff99;
+    border-radius:10px;
+    padding:15px;
+    
+}
+
+.location{
+    padding:10px;
+    margin:5px 0;
+    cursor:pointer;
+    border:1px solid #00ff99;
+    border-radius:5px;
+}
+
+.location:hover{
+    background:#102030;
+}
+
+.card{
+    border:1px solid #00ff99;
+    border-radius:10px;
+    margin-bottom:10px;
+    padding:15px;
+}
+
+button{
+    background:#00ff99;
+    color:#001018;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#7fffd4;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🎣 EASTERN SIERRA COMMAND CENTER</h1>
+
+<div class="grid">
+
+    <div class="sidebar">
+
+        <h3>Fishing Areas</h3>
+
+        <div class="location" onclick="selectSpot('Whitney Portal')">Whitney Portal</div>
+        <div class="location" onclick="selectSpot('Owens River')">Owens River</div>
+        <div class="location" onclick="selectSpot('Lake Sabrina')">Lake Sabrina</div>
+        <div class="location" onclick="selectSpot('South Lake')">South Lake</div>
+        <div class="location" onclick="selectSpot('North Lake')">North Lake</div>
+        <div class="location" onclick="selectSpot('Rock Creek')">Rock Creek</div>
+        <div class="location" onclick="selectSpot('Convict Lake')">Convict Lake</div>
+        <div class="location" onclick="selectSpot('Crowley Lake')">Crowley Lake</div>
+        <div class="location" onclick="selectSpot('Hot Creek')">Hot Creek</div>
+        <div class="location" onclick="selectSpot('June Lake')">June Lake</div>
+        <div class="location" onclick="selectSpot('Silver Lake')">Silver Lake</div>
+        <div class="location" onclick="selectSpot('Grant Lake')">Grant Lake</div>
+        <div class="location" onclick="selectSpot('Virginia Lakes')">Virginia Lakes</div>
+        <div class="location" onclick="selectSpot('Twin Lakes Bridgeport')">Twin Lakes Bridgeport</div>
+        <div class="location" onclick="selectSpot('East Walker River')">East Walker River</div>
+
+    </div>
+
+    <div class="main">
+
+        <div class="card">
+            <h2 id="spotName">Select a Fishing Spot</h2>
+        </div>
+
+        <div class="card">
+            <h3>Weather</h3>
+            <div id="weather">Select a location</div>
+        </div>
+
+        <div class="card">
+            <h3>Fishing Conditions</h3>
+            <div id="conditions">
+                Select a location
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Moon Phase</h3>
+            <div id="moon">
+                Loading...
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Fishing Notes</h3>
+            <div id="notes">
+                Select a location
+            </div>
+        </div>
+
+        <div class="card">
+    <h3>Fish Stocking Reports</h3>
+
+    <button onclick="openStockingReport()">
+        🎣 Open CDFW Fish Planting Schedule
+    </button>
+</div>
+
+    </div>
+
+</div>
+
+<script>
+
+const fishingSpots = {
+
+    "Whitney Portal": { lat: 36.578, lon: -118.292 },
+    "Owens River": { lat: 37.450, lon: -118.580 },
+    "Lake Sabrina": { lat: 37.211, lon: -118.604 },
+    "South Lake": { lat: 37.177, lon: -118.558 },
+    "North Lake": { lat: 37.226, lon: -118.601 },
+    "Rock Creek": { lat: 37.448, lon: -118.716 },
+    "Convict Lake": { lat: 37.609, lon: -118.834 },
+    "Crowley Lake": { lat: 37.589, lon: -118.751 },
+    "Hot Creek": { lat: 37.651, lon: -118.823 },
+    "June Lake": { lat: 37.779, lon: -119.076 },
+    "Silver Lake": { lat: 37.778, lon: -119.090 },
+    "Grant Lake": { lat: 37.812, lon: -119.102 },
+    "Virginia Lakes": { lat: 38.072, lon: -119.275 },
+    "Twin Lakes Bridgeport": { lat: 38.166, lon: -119.315 },
+    "East Walker River": { lat: 38.367, lon: -119.173 }
+
+};
+
+const fishingNotes = {
+
+    "Whitney Portal": "Cold water. Best very early morning.",
+    "Owens River": "Excellent wild trout habitat.",
+    "Lake Sabrina": "Great stocked trout water.",
+    "South Lake": "Good for brook and rainbow trout.",
+    "North Lake": "Popular high-country trout lake.",
+    "Rock Creek": "One of the most productive creeks in the Sierra.",
+    "Convict Lake": "Large trout and scenic fishing.",
+    "Crowley Lake": "Known for trophy trout. Watch wind conditions.",
+    "Hot Creek": "Wild trout water with special regulations.",
+    "June Lake": "Consistent stocked trout fishing.",
+    "Silver Lake": "Good shore fishing opportunities.",
+    "Grant Lake": "Good trolling opportunities.",
+    "Virginia Lakes": "Excellent summer trout fishing.",
+    "Twin Lakes Bridgeport": "Great trout fishing and boating.",
+    "East Walker River": "Famous for large trout."
+
+};
+
+const fishPlants = {
+        "Crowley Lake": "9/15/26"
+}
+
+async function getWeather(lat, lon){
+
+    const url =
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&temperature_
+        unit=fahrenheit&wind_speed_unit=mph`;
+
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    return data.current;
+    };
+
+    
+
+
+
+async function selectSpot(name){
+
+    document.getElementById("spotName").innerText =
+        name;
+
+    document.getElementById("weather").innerText =
+        "Loading weather...";
+
+    document.getElementById("conditions").innerText =
+        "Loading conditions...";
+
+    document.getElementById("notes").innerText =
+        fishingNotes[name] || "No notes available.";
+
+    const spot = fishingSpots[name];
+
+    if(!spot){
+        return;
+    }
+
+    try{
+
+        const weather =
+            await getWeather(
+                spot.lat,
+                spot.lon
+            );
+
+        document.getElementById("weather").innerHTML =
+            `
+            Temp: ${weather.temperature_2m}°F<br>
+            Wind: ${weather.wind_speed_10m} mph
+            `;
+
+        let rating = "";
+
+        if(weather.wind_speed_10m < 6){
+            rating = "🟢 Excellent";
+        }
+        else if(weather.wind_speed_10m < 12){
+            rating = "🟡 Fair";
+        }
+        else{
+            rating = "🔴 Windy";
+        }
+
+        document.getElementById("conditions").innerHTML =
+            `
+            Fishing Rating: ${rating}<br><br>
+            Recent Stocking: ${fishPlants[name] || "No Data"}
+            `;
+
+    }
+    catch(error){
+
+        document.getElementById("weather").innerText =
+            "Weather unavailable";
+
+        document.getElementById("conditions").innerText =
+            error.message;
+
+    }
+
+}
+
+function openStockingReport(){
+
+    window.open(
+        "https://www.nrm.dfg.ca.gov/fishplants/PublicPlantSearch",
+        "_blank"
+    );
+
+}
+
+
+function getMoonPhase(){
+
+    const moon = [
+        "🌑 New Moon",
+        "🌒 Waxing Crescent",
+        "🌓 First Quarter",
+        "🌔 Waxing Gibbous",
+        "🌕 Full Moon",
+        "🌖 Waning Gibbous",
+        "🌗 Last Quarter",
+        "🌘 Waning Crescent"
+    ];
+
+    const index =
+        Math.floor(Date.now()/86400000)%8;
+
+    return moon[index];
+}
+
+document.getElementById("moon").innerText =
+    getMoonPhase();
+
+</script>
+
+</body>
+</html>
