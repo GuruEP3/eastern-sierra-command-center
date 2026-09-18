@@ -135,6 +135,14 @@ button:hover{
                 </div>
             </div>
 
+        <div class="card">
+    <h3>Elevation</h3>
+
+    <div id="elevation">
+        Select a location
+    </div>
+</div>
+
         
 
         <div class="card">
@@ -153,23 +161,98 @@ button:hover{
 
 const fishingSpots = {
 
-    "Whitney Portal": { lat: 36.578, lon: -118.292 },
-    "Owens River": { lat: 37.450, lon: -118.580 },
-    "Lake Sabrina": { lat: 37.211, lon: -118.604 },
-    "South Lake": { lat: 37.177, lon: -118.558 },
-    "North Lake": { lat: 37.226, lon: -118.601 },
-    "Rock Creek": { lat: 37.448, lon: -118.716 },
-    "Convict Lake": { lat: 37.609, lon: -118.834 },
-    "Crowley Lake": { lat: 37.589, lon: -118.751 },
-    "Hot Creek": { lat: 37.651, lon: -118.823 },
-    "June Lake": { lat: 37.779, lon: -119.076 },
-    "Silver Lake": { lat: 37.778, lon: -119.090 },
-    "Grant Lake": { lat: 37.812, lon: -119.102 },
-    "Virginia Lakes": { lat: 38.072, lon: -119.275 },
-    "Twin Lakes Bridgeport": { lat: 38.166, lon: -119.315 },
-    "East Walker River": { lat: 38.367, lon: -119.173 }
 
-};
+    "Whitney Portal": {
+        lat: 36.578,
+        lon: -118.292,
+        elevation: 8360
+    },
+
+    "Owens River": {
+        lat: 37.450,
+        lon: -118.580,
+        elevation: 4100
+    },
+
+    "Lake Sabrina": {
+        lat: 37.211,
+        lon: -118.604,
+        elevation: 9128
+    },
+
+    "South Lake": {
+        lat: 37.177,
+        lon: -118.558,
+        elevation: 9772
+    },
+
+    "North Lake": {
+        lat: 37.226,
+        lon: -118.601,
+        elevation: 9350
+    },
+
+    "Rock Creek": {
+        lat: 37.448,
+        lon: -118.716,
+        elevation: 9700
+    },
+
+    "Convict Lake": {
+        lat: 37.609,
+        lon: -118.834,
+        elevation: 7850
+    },
+
+    "Crowley Lake": {
+        lat: 37.589,
+        lon: -118.751,
+        elevation: 6781
+    },
+
+    "Hot Creek": {
+        lat: 37.651,
+        lon: -118.823,
+        elevation: 6800
+    },
+
+    "June Lake": {
+        lat: 37.779,
+        lon: -119.076,
+        elevation: 7600
+    },
+
+    "Silver Lake": {
+        lat: 37.778,
+        lon: -119.090,
+        elevation: 7196
+    },
+
+    "Grant Lake": {
+        lat: 37.812,
+        lon: -119.102,
+        elevation: 7130
+    },
+
+    "Virginia Lakes": {
+        lat: 38.072,
+        lon: -119.275,
+        elevation: 9820
+    },
+
+    "Twin Lakes Bridgeport": {
+        lat: 38.166,
+        lon: -119.315,
+        elevation: 6838
+    },
+
+    "East Walker River": {
+        lat: 38.367,
+        lon: -119.173,
+        elevation: 6500
+    }
+
+    };
 
 
 
@@ -209,6 +292,9 @@ async function selectSpot(name){
     
 
     const spot = fishingSpots[name];
+    document.getElementById("elevation").innerHTML =
+
+`${spot.elevation.toLocaleString()} ft`;
 
     if(!spot){
         return;
