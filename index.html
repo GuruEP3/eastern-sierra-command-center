@@ -168,6 +168,14 @@ button:hover{
                 </div>
             </div>
 
+            <div class="card">
+                <h3>3-Day Forecast</h3>
+
+                <div id="forecast">
+                    Select a location
+</div>
+</div>
+
         <div class="card">
     <h3>Elevation</h3>
 
@@ -302,7 +310,7 @@ const fishPlants = {
 async function getWeather(lat, lon){
 
     const url =
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=sunrise,sunset&timezone=auto&temperature_unit=fahrenheit&wind_speed_unit=mph`;
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min&timezone=auto&temperature_unit=fahrenheit&wind_speed_unit=mph`;
 
 console.log(url);
 
@@ -367,6 +375,31 @@ ${new Date(weather.daily.sunrise[0]).toLocaleTimeString([], {hour:'numeric', min
 ${new Date(weather.daily.sunset[0]).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'})}
 `;
 
+document.getElementById("forecast").innerHTML =
+`
+Today:
+
+High ${weather.daily.temperature_2m_max[0]}°F
+
+Low ${weather.daily.temperature_2m_min[0]}°F
+
+<br><br>
+
+Tomorrow:
+
+High ${weather.daily.temperature_2m_max[1]}°F
+
+Low ${weather.daily.temperature_2m_min[1]}°F
+
+<br><br>
+
+Day 3:
+
+High ${weather.daily.temperature_2m_max[2]}°F
+
+Low ${weather.daily.temperature_2m_min[2]}°F
+
+`;
             
 
         let rating = "";
