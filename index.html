@@ -180,10 +180,11 @@ const fishPlants = {
 async function getWeather(lat, lon){
 
     const url =
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=sunrise,sunset&timezone=auto&temperature_
-        unit=fahrenheit&wind_speed_unit=mph`;
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=sunrise,sunset&timezone=auto&temperature_unit=fahrenheit&wind_speed_unit=mph`;
 
-    const response = await fetch(url);
+console.log(url);
+
+        const response = await fetch(url);
 
     const data = await response.json();
 
