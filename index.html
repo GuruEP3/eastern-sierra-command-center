@@ -34,42 +34,61 @@ h1{
     gap:20px;
 }
 
+.mobile-selector{
+    display:none;
+}
+
+.mobile-selector select{
+    width:100%;
+    padding:12px;
+    background:#061018;
+    color:#00ff99;
+    border:1px solid #00ff99;
+    border-radius:8px;
+}
+
 @media (max-width: 768px){
 
-    body{
-        padding:10px;
-    }
+body{
+padding:10px;
+}
 
-    h1{
-        font-size:1.5rem;
-    }
+h1{
+font-size:1.5rem;
+}
 
-    h2{
-        font-size:1.2rem;
-    }
+h2{
+font-size:1.2rem;
+}
 
-    .grid{
-        grid-template-columns:1fr;
-    }
+.grid{
+grid-template-columns:1fr;
+}
 
-    .main{
-        padding:10px;
-    }
+.main{
+padding:10px;
+}
 
-    .card{
-        padding:10px;
-    }
+.card{
+padding:10px;
+}
 
-    .mobile-selector{
-        display:block;
-        margin-bottom:15px;
+.mobile-selector{
+display:block;
+margin-bottom:15px;
+}
+
+.location{
+display:none;
+}
+
 }
 .location{
 display:none;
 }
 
 
-}
+
 
 .sidebar{
     border:1px solid #00ff99;
@@ -87,7 +106,6 @@ display:none;
 .mobile-selector{
 display:none;
 }
- 
 .mobile-selector select{
 width:100%;
 padding:12px;
@@ -157,22 +175,31 @@ button:hover{
 
         <h3>Fishing Areas</h3>
 
-        <div class="location" onclick="selectSpot('Whitney Portal')">Whitney Portal</div>
-        <div class="location" onclick="selectSpot('Owens River')">Owens River</div>
-        <div class="location" onclick="selectSpot('Lake Sabrina')">Lake Sabrina</div>
-        <div class="location" onclick="selectSpot('South Lake')">South Lake</div>
-        <div class="location" onclick="selectSpot('North Lake')">North Lake</div>
-        <div class="location" onclick="selectSpot('Rock Creek')">Rock Creek</div>
-        <div class="location" onclick="selectSpot('Convict Lake')">Convict Lake</div>
-        <div class="location" onclick="selectSpot('Crowley Lake')">Crowley Lake</div>
-        <div class="location" onclick="selectSpot('Hot Creek')">Hot Creek</div>
-        <div class="location" onclick="selectSpot('June Lake')">June Lake</div>
-        <div class="location" onclick="selectSpot('Silver Lake')">Silver Lake</div>
-        <div class="location" onclick="selectSpot('Grant Lake')">Grant Lake</div>
-        <div class="location" onclick="selectSpot('Virginia Lakes')">Virginia Lakes</div>
-        <div class="location" onclick="selectSpot('Twin Lakes Bridgeport')">Twin Lakes Bridgeport</div>
-        <div class="location" onclick="selectSpot('East Walker River')">East Walker River</div>
+        <h3>Fishing Areas</h3>
 
+<div class="mobile-selector">
+    <select onchange="selectSpot(this.value)">
+        <option value="">Select a Fishing Spot</option>
+
+        <option value="Whitney Portal">Whitney Portal</option>
+        <option value="Owens River">Owens River</option>
+        <option value="Lake Sabrina">Lake Sabrina</option>
+        <option value="South Lake">South Lake</option>
+        <option value="North Lake">North Lake</option>
+        <option value="Rock Creek">Rock Creek</option>
+        <option value="Convict Lake">Convict Lake</option>
+        <option value="Crowley Lake">Crowley Lake</option>
+        <option value="Hot Creek">Hot Creek</option>
+        <option value="June Lake">June Lake</option>
+        <option value="Silver Lake">Silver Lake</option>
+        <option value="Grant Lake">Grant Lake</option>
+        <option value="Virginia Lakes">Virginia Lakes</option>
+        <option value="Twin Lakes Bridgeport">Twin Lakes Bridgeport</option>
+        <option value="East Walker River">East Walker River</option>
+    </select>
+</div>
+
+<div class="location" onclick="selectSpot('Whitney Portal')">Whitney Portal</div>
     </div>
 
     <div class="main">
