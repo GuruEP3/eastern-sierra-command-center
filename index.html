@@ -536,27 +536,20 @@ Low ${weather.daily.temperature_2m_min[2]}°F
 
 function openStockingReport(){
 
-function openStockingReport(){
-
-    console.log(currentLocation);
-
     const link = cdfwLinks[currentLocation];
 
-    console.log(link);
-
     if(link){
+
         window.open(link, "_blank");
+
     }
     else{
-        alert("CDFW report not yet configured for this location.");
-    }
 
-}
-    
-    window.open(
-        "https://www.nrm.dfg.ca.gov/fishplants/PublicPlantSearch",
-        "_blank"
-    );
+        alert(
+            "CDFW report not yet configured for this location."
+        );
+
+    }
 
 }
 
