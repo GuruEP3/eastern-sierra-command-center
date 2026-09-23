@@ -290,7 +290,7 @@ button:hover{
 
 <script>
 
-
+let currentLocation = "";
 
 
 const fishingSpots = {
@@ -394,7 +394,7 @@ const fishPlants = {
         "Crowley Lake": "9/15/26"
 };
 
-let currentLocation = "";
+
 
 const cdfwLinks = {
 
@@ -536,26 +536,12 @@ Low ${weather.daily.temperature_2m_min[2]}°F
 
 function openStockingReport(){
 
-
-    const link = cdfwLinks[currentLocation];
-
-    if(link){
-
-        window.open(link, "_blank");
-
-    }
-    else{
-
-        alert(
-            "CDFW report not yet configured for this location."
-        );
-
-    }
+    window.open(
+        "https://www.nrm.dfg.ca.gov/fishplants/PublicPlantSearch",
+        "_blank"
+    );
 
 }
-``
-
-
 
 
 function getMoonPhase(){
