@@ -308,8 +308,9 @@ button:hover{
     </button>
 <br><br>
 
-<button onclick="toggleFavorite()">
-    ⭐ Favorite This Location
+<<button id="favoriteButton"
+        onclick="toggleFavorite()">
+    ⭐ Add Favorite
 </button>
 
 </div>
@@ -521,10 +522,33 @@ function renderFavorites(){
 
 }
 
+function updateFavoriteButton(){
+
+    const button =
+        document.getElementById("favoriteButton");
+
+    if(!button || !currentLocation){
+        return;
+    }
+
+    if(favorites.includes(currentLocation)){
+        button.innerText =
+            "⭐ Remove Favorite";
+    }
+    else{
+        button.innerText =
+            "⭐ Add Favorite";
+    }
+
+}
+
 
 async function selectSpot(name){
 
 currentLocation = name;
+
+updateFavoriteButton();
+
 
     document.getElementById("spotName").innerText =
         name;
@@ -659,7 +683,23 @@ function toggleFavorite(){
         return;
     }
 
-    if(!favorites.includes(currentLocation)){
+    if(favorites.includes(currentLocation)){
+
+        favorites = favorites.filter(
+            f => f !== currentLocation
+        );
+
+        localStorage.setItem(
+            "favorites",
+            JSON.stringify(favorites)
+        );
+
+        renderFavorites();
+
+        alert(currentLocation + " removed from favorites!");
+
+    }
+    else{
 
         favorites.push(currentLocation);
 
@@ -670,18 +710,31 @@ function toggleFavorite(){
 
         renderFavorites();
 
-
         alert(currentLocation + " added to favorites!");
 
     }
-    else{
 
-        alert(currentLocation + " is already a favorite!");
 
-    }
 
 }
 
+function updateFavoriteButton(){
+
+    const button =
+        document.getElementById("favoriteButton");
+
+    if(!button || !currentLocation) return;
+
+    if(favorites.includes(currentLocation)){
+        button.innerText =
+            "⭐ Remove Favorite";
+    }
+    else{
+        button.innerText =
+            "⭐ Add Favorite";
+    }
+
+}
 
 
 function getMoonPhase(){
