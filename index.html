@@ -298,6 +298,12 @@ button:hover{
     <button onclick="openStockingReport()">
         🎣 Open CDFW Fish Planting Schedule
     </button>
+<br><br>
+
+<button onclick="toggleFavorite()">
+    ⭐ Favorite This Location
+</button>
+
 </div>
 
     </div>
@@ -618,6 +624,16 @@ function openStockingReport(){
 
 }
 
+function toggleFavorite(){
+
+    if(!currentLocation){
+        alert("Select a location first.");
+        return;
+    }
+
+    alert(currentLocation + " added to favorites!");
+
+}
 
 function getMoonPhase(){
 
