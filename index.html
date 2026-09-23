@@ -242,6 +242,14 @@ button:hover{
 
     </div>
 
+<div class="card">
+    <h3>⭐ Favorites</h3>
+
+    <div id="favoritesList">
+        No favorites yet.
+    </div>
+</div>
+
     <div class="main">
 
         <div class="card">
@@ -493,7 +501,25 @@ console.log(url);
     };
 
     
+function renderFavorites(){
 
+    const favoritesList =
+        document.getElementById("favoritesList");
+
+    if(favorites.length === 0){
+
+        favoritesList.innerHTML =
+            "No favorites yet.";
+
+        return;
+    }
+
+    favoritesList.innerHTML =
+        favorites.map(f =>
+            `<div class="location" onclick="selectSpot('${f}')">${f}</div>`
+        ).join("");
+
+}
 
 
 async function selectSpot(name){
@@ -642,6 +668,9 @@ function toggleFavorite(){
             JSON.stringify(favorites)
         );
 
+        renderFavorites();
+
+
         alert(currentLocation + " added to favorites!");
 
     }
@@ -673,6 +702,8 @@ function getMoonPhase(){
 
     return moon[index];
 }
+
+renderFavorites();
 
 document.getElementById("moon").innerText =
     getMoonPhase();
