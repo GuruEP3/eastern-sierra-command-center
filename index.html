@@ -320,6 +320,8 @@ button:hover{
 
 let currentLocation = "";
 
+let favorites =
+    JSON.parse(localStorage.getItem("favorites")) || [];
 
 const fishingSpots = {
 
@@ -631,9 +633,27 @@ function toggleFavorite(){
         return;
     }
 
-    alert(currentLocation + " added to favorites!");
+    if(!favorites.includes(currentLocation)){
+
+        favorites.push(currentLocation);
+
+        localStorage.setItem(
+            "favorites",
+            JSON.stringify(favorites)
+        );
+
+        alert(currentLocation + " added to favorites!");
+
+    }
+    else{
+
+        alert(currentLocation + " is already a favorite!");
+
+    }
 
 }
+
+
 
 function getMoonPhase(){
 
