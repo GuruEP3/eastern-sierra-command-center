@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sierra Fishing HQ</title>
 
-<script async
-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3254069692571204"
-crossorigin="anonymous">
+
 </script>
 
 <style>
@@ -789,12 +787,33 @@ function updateFavoriteButton(){
 
 }
 
+function loadAds(){
+
+const script =
+document.createElement("script");
+
+script.async = true;
+
+script.src =
+"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3254069692571204";
+
+script.crossOrigin =
+"anonymous";
+
+document.head.appendChild(script);
+
+}
+
+
+
 function acceptCookies(){
 
     localStorage.setItem(
         "cookieConsent",
         "accepted"
     );
+
+    loadAds();
 
     document.getElementById(
         "cookieBanner"
@@ -817,12 +836,21 @@ function declineCookies(){
 
 window.onload = function(){
 
-    if(
-        localStorage.getItem("cookieConsent")
-    ){
+    const consent =
+        localStorage.getItem("cookieConsent");
+
+    if(consent){
+
         document.getElementById(
             "cookieBanner"
         ).style.display = "none";
+
+    }
+
+    if(consent === "accepted"){
+
+        loadAds();
+
     }
 
 };
