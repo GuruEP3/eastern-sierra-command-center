@@ -186,11 +186,29 @@ button:hover{
     background:#7fffd4;
 }
 
-
+#cookieBanner{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#061018;
+    color:#00ff99;
+    border-top:1px solid #00ff99;
+    padding:15px;
+    text-align:center;
+    z-index:1000;
+}
 
 </style>
 
 </head>
+
+<div id="cookieBanner">
+This site uses cookies to support advertising and site functionality.
+<button onclick="acceptCookies()">
+Accept
+</button>
+</div>
 
 <body>
 
@@ -765,6 +783,34 @@ function updateFavoriteButton(){
 
 }
 
+function acceptCookies(){
+
+    localStorage.setItem(
+        "cookieConsent",
+        "accepted"
+    );
+
+    document.getElementById(
+        "cookieBanner"
+    ).style.display = "none";
+
+}
+
+window.onload = function(){
+
+
+
+if(
+    localStorage.getItem(
+        "cookieConsent"
+    ) === "accepted"
+){
+    document.getElementById(
+        "cookieBanner"
+    ).style.display = "none";
+}
+
+};
 
 
 
