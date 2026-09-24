@@ -573,8 +573,39 @@ updateFavoriteButton();
                 spot.lon
             );
 
-            document.getElementById("moon").innerHTML =
-    weather.daily.moon_phase[0];
+    
+
+    const moonValue = weather.daily.moon_phase[0];
+
+let moonText = "";
+
+if(moonValue < 0.125){
+    moonText = "🌑 New Moon";
+}
+else if(moonValue < 0.25){
+    moonText = "🌒 Waxing Crescent";
+}
+else if(moonValue < 0.375){
+    moonText = "🌓 First Quarter";
+}
+else if(moonValue < 0.5){
+    moonText = "🌔 Waxing Gibbous";
+}
+else if(moonValue < 0.625){
+    moonText = "🌕 Full Moon";
+}
+else if(moonValue < 0.75){
+    moonText = "🌖 Waning Gibbous";
+}
+else if(moonValue < 0.875){
+    moonText = "🌗 Last Quarter";
+}
+else{
+    moonText = "🌘 Waning Crescent";
+}
+
+document.getElementById("moon").innerHTML =
+    moonText;
 
 
             console.log(weather);
