@@ -499,7 +499,7 @@ const cdfwLinks = {
 async function getWeather(lat, lon){
 
     const url =
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min&timezone=auto&temperature_unit=fahrenheit&wind_speed_unit=mph`;
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,moon_phase&timezone=auto&temperature_unit=fahrenheit&wind_speed_unit=mph`;
 
 console.log(url);
 
@@ -572,6 +572,10 @@ updateFavoriteButton();
                 spot.lat,
                 spot.lon
             );
+
+            document.getElementById("moon").innerHTML =
+    weather.daily.moon_phase[0];
+
 
             console.log(weather);
             
@@ -731,29 +735,11 @@ function updateFavoriteButton(){
 }
 
 
-function getMoonPhase(){
 
-    const moon = [
-        "🌑 New Moon",
-        "🌒 Waxing Crescent",
-        "🌓 First Quarter",
-        "🌔 Waxing Gibbous",
-        "🌕 Full Moon",
-        "🌖 Waning Gibbous",
-        "🌗 Last Quarter",
-        "🌘 Waning Crescent"
-    ];
-
-    const index =
-        Math.floor(Date.now()/86400000)%8;
-
-    return moon[index];
-}
 
 renderFavorites();
 
-document.getElementById("moon").innerText =
-    getMoonPhase();
+
 
 </script>
 
