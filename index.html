@@ -203,6 +203,10 @@ button:hover{
 
 </head>
 
+
+
+<body>
+
 <div id="cookieBanner">
 This site uses cookies to support advertising and site functionality.
 <button onclick="acceptCookies()">
@@ -211,10 +215,10 @@ Accept
 <button onclick="declineCookies()">
 Decline
 </button>
-
-<body>
+</div>
 
 <div class="nav">
+
 <a href="index.html">Home</a> |
 <a href="about.html">About</a> |
 <a href="privacy.html">Privacy</a> |
@@ -798,8 +802,6 @@ function acceptCookies(){
 
 }
 
-window.onload = function(){
-
 function declineCookies(){
 
     localStorage.setItem(
@@ -812,6 +814,18 @@ function declineCookies(){
     ).style.display = "none";
 
 }
+
+window.onload = function(){
+
+    if(
+        localStorage.getItem("cookieConsent")
+    ){
+        document.getElementById(
+            "cookieBanner"
+        ).style.display = "none";
+    }
+
+};
 
 
 if(
