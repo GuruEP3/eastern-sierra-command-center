@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sierra Fishing HQ</title>
 
-
+<script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3254069692571204"
+crossorigin="anonymous">
 </script>
 
 <style>
@@ -184,39 +186,15 @@ button:hover{
     background:#7fffd4;
 }
 
-#cookieBanner{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#061018;
-    color:#00ff99;
-    border-top:1px solid #00ff99;
-    padding:15px;
-    text-align:center;
-    z-index:1000;
-}
+
 
 </style>
 
 </head>
 
-
-
 <body>
 
-<div id="cookieBanner">
-This site uses cookies to support advertising and site functionality.
-<button onclick="acceptCookies()">
-Accept
-</button>
-<button onclick="declineCookies()">
-Decline
-</button>
-</div>
-
 <div class="nav">
-
 <a href="index.html">Home</a> |
 <a href="about.html">About</a> |
 <a href="privacy.html">Privacy</a> |
@@ -258,6 +236,9 @@ Decline
         <option value="Virginia Lakes">Virginia Lakes</option>
         <option value="Twin Lakes Bridgeport">Twin Lakes Bridgeport</option>
         <option value="East Walker River">East Walker River</option>
+        <option value="Tioga Lake">Tioga Lake</option>
+        <option value="Ellery Lake">Ellery Lake</option>
+        <option value="Saddlebag Lake">Saddlebag Lake</option>
     </select>
 </div>
 
@@ -276,6 +257,9 @@ Decline
         <div class="location" onclick="selectSpot('Virginia Lakes')">Virginia Lakes</div>
         <div class="location" onclick="selectSpot('Twin Lakes Bridgeport')">Twin Lakes Bridgeport</div>
         <div class="location" onclick="selectSpot('East Walker River')">East Walker River</div>
+        <div class="location" onclick="selectSpot('Tioga Lake')">Tioga Lake</div>
+        <div class="location" onclick="selectSpot('Ellery Lake')">Ellery Lake</div>
+        <div class="location" onclick="selectSpot('Saddlebag Lake')">Saddlebag Lake</div>
 
     </div>
 
@@ -302,7 +286,7 @@ Decline
         <div class="card">
             <h3>Moon Phase</h3>
             <div id="moon">
-                Select a location
+                Loading...
             </div>
         </div>
 
@@ -454,7 +438,25 @@ const fishingSpots = {
         lat: 38.367,
         lon: -119.173,
         elevation: 6500
-    }
+    },
+
+    "Tioga Lake": {
+        lat: 37.911,
+        lon: -119.253,
+        elevation: 9696
+},
+
+    "Ellery Lake": {
+        lat: 37.939,
+        lon: -119.227,
+        elevation: 9492
+},
+
+    "Saddlebag Lake": {
+        lat: 37.979,
+        lon: -119.272,
+        elevation: 10051
+}
 
     };
 
@@ -521,7 +523,7 @@ const cdfwLinks = {
 async function getWeather(lat, lon){
 
     const url =
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,moon_phase&timezone=auto&temperature_unit=fahrenheit&wind_speed_unit=mph`;
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,wind_speed_10m&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min&timezone=auto&temperature_unit=fahrenheit&wind_speed_unit=mph`;
 
 console.log(url);
 
@@ -594,41 +596,6 @@ updateFavoriteButton();
                 spot.lat,
                 spot.lon
             );
-
-    
-
-    const moonValue = weather.daily.moon_phase[0];
-
-let moonText = "";
-
-if(moonValue < 0.125){
-    moonText = "🌑 New Moon";
-}
-else if(moonValue < 0.25){
-    moonText = "🌒 Waxing Crescent";
-}
-else if(moonValue < 0.375){
-    moonText = "🌓 First Quarter";
-}
-else if(moonValue < 0.5){
-    moonText = "🌔 Waxing Gibbous";
-}
-else if(moonValue < 0.625){
-    moonText = "🌕 Full Moon";
-}
-else if(moonValue < 0.75){
-    moonText = "🌖 Waning Gibbous";
-}
-else if(moonValue < 0.875){
-    moonText = "🌗 Last Quarter";
-}
-else{
-    moonText = "🌘 Waning Crescent";
-}
-
-document.getElementById("moon").innerHTML =
-    moonText;
-
 
             console.log(weather);
             
@@ -787,79 +754,30 @@ function updateFavoriteButton(){
 
 }
 
-function loadAds(){
 
-const script =
-document.createElement("script");
+function getMoonPhase(){
 
-script.async = true;
+    const moon = [
+        "🌑 New Moon",
+        "🌒 Waxing Crescent",
+        "🌓 First Quarter",
+        "🌔 Waxing Gibbous",
+        "🌕 Full Moon",
+        "🌖 Waning Gibbous",
+        "🌗 Last Quarter",
+        "🌘 Waning Crescent"
+    ];
 
-script.src =
-"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3254069692571204";
+    const index =
+        Math.floor(Date.now()/86400000)%8;
 
-script.crossOrigin =
-"anonymous";
-
-document.head.appendChild(script);
-
+    return moon[index];
 }
-
-
-
-function acceptCookies(){
-
-    localStorage.setItem(
-        "cookieConsent",
-        "accepted"
-    );
-
-    loadAds();
-
-    document.getElementById(
-        "cookieBanner"
-    ).style.display = "none";
-
-}
-
-function declineCookies(){
-
-    localStorage.setItem(
-        "cookieConsent",
-        "declined"
-    );
-
-    document.getElementById(
-        "cookieBanner"
-    ).style.display = "none";
-
-}
-
-window.onload = function(){
-
-    const consent =
-        localStorage.getItem("cookieConsent");
-
-    if(consent){
-
-        document.getElementById(
-            "cookieBanner"
-        ).style.display = "none";
-
-    }
-
-    if(consent === "accepted"){
-
-        loadAds();
-
-    }
-
-};
-
-
 
 renderFavorites();
 
-
+document.getElementById("moon").innerText =
+    getMoonPhase();
 
 </script>
 
