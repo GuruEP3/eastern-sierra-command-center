@@ -306,6 +306,14 @@ button:hover{
         </div>
 
         <div class="card">
+            <h3>🎣 Recommended Setup</h3>
+
+        <div id="tips">
+            Select a location
+        </div>
+</div>
+
+        <div class="card">
             <h3>Moon Phase</h3>
             <div id="moon">
                 Loading...
@@ -494,7 +502,66 @@ const fishPlants = {
         "Crowley Lake": "9/15/26"
 };
 
+const fishingTips = {
 
+    "Whitney Portal":
+        "Salmon eggs with split shot or a gold Panther Martin spinner are proven producers in the Whitney Portal pond.",
+
+    "Owens River":
+        "Salmon eggs with split shot and a salmon egg snell hook work well in deeper runs and pools. Gold Panther Martin spinners are also productive.",
+
+    "Lake Sabrina":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "South Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "North Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Rock Creek":
+        "Gold Panther Martin spinners are productive in pocket water and faster currents. Salmon eggs with split shot also work well.",
+
+    "Convict Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Crowley Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Hot Creek":
+        "Light presentations work best. Salmon eggs fished naturally can be effective in slower sections.",
+
+    "June Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Silver Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Grant Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Virginia Lakes":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Twin Lakes Bridgeport":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "East Walker River":
+        "Salmon eggs with split shot or a gold Panther Martin spinner are productive in deeper runs and current seams.",
+
+    "Tioga Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Ellery Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Saddlebag Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore.",
+
+    "Diaz Lake":
+        "Fish a casting bubble, swivel, and leader with a Woolly Bugger, fly, or small lure from shore."
+
+};
 
 const cdfwLinks = {
 
@@ -611,6 +678,10 @@ updateFavoriteButton();
 
     document.getElementById("spotName").innerText =
         name;
+
+    document.getElementById("tips").innerText =
+    fishingTips[name] ||
+    "No setup recommendation available.";
 
 
     document.getElementById("weather").innerText =
