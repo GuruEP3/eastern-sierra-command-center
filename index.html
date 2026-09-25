@@ -258,6 +258,7 @@ button:hover{
         <option value="Tioga Lake">Tioga Lake</option>
         <option value="Ellery Lake">Ellery Lake</option>
         <option value="Saddlebag Lake">Saddlebag Lake</option>
+        <option value="Diaz Lake">Diaz Lake</option>
     </select>
 </div>
 
@@ -279,6 +280,8 @@ button:hover{
         <div class="location" onclick="selectSpot('Tioga Lake')">Tioga Lake</div>
         <div class="location" onclick="selectSpot('Ellery Lake')">Ellery Lake</div>
         <div class="location" onclick="selectSpot('Saddlebag Lake')">Saddlebag Lake</div>
+        <div class="location" onclick="selectSpot('Diaz Lake')">Diaz Lake
+</div>
 
     </div>
 
@@ -475,6 +478,12 @@ const fishingSpots = {
         lat: 37.979,
         lon: -119.272,
         elevation: 10051
+},
+
+    "Diaz Lake": {
+        lat: 36.586,
+        lon: -118.052,
+        elevation: 3939
 }
 
     };
@@ -541,7 +550,10 @@ const cdfwLinks = {
     "https://nrm.dfg.ca.gov/fishplants/publicplantsearch?Params.StockingWaterID=17316&RegionCountyMappings=&submit=Search",
 
     "Saddlebag Lake":
-    "https://nrm.dfg.ca.gov/fishplants/publicplantsearch?Params.StockingWaterID=17271&RegionCountyMappings=&submit=Search"
+    "https://nrm.dfg.ca.gov/fishplants/publicplantsearch?Params.StockingWaterID=17271&RegionCountyMappings=&submit=Search",
+
+    "Diaz Lake":
+    "https://nrm.dfg.ca.gov/fishplants/publicplantsearch?Params.StockingWaterID=5970&RegionCountyMappings=&submit=Search"
 
 
 };
