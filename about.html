@@ -31,17 +31,12 @@ a{
     border-radius:10px;
 }
 
-@media (max-width:768px){
-
-    .who-i-am{
-        flex-direction:column;
-    }
-
-    .who-i-am img{
-        width:180px;
-        margin:0 auto;
-    }
-
+.profile-photo{
+    width:100%;
+    max-width:600px;
+    border:1px solid #00ff99;
+    border-radius:10px;
+    margin-bottom:15px;
 }
 
 .card{
@@ -67,28 +62,28 @@ a{
 
 <div class="card">
 
-    <div class="who-i-am">
+    <div style="text-align:center;">
 
-        <img src="tristan.jpg" alt="Fishing in the Eastern Sierra">
-
-        <div>
-
-            <h2>Who I Am</h2>
-
-            <p>
-                Hi, I'm Tristan, an avid angler who has spent years fishing the lakes,
-                rivers, creeks, reservoirs, and backcountry waters of California's
-                Eastern Sierra.
-            </p>
-
-            <p>
-                I created Sierra Fishing HQ to bring the information I personally use
-                before every fishing trip into one easy-to-use location.
-            </p>
-
-        </div>
+        <img src="tristan.jpg"
+             alt="Fishing in the Eastern Sierra"
+             class="profile-photo">
 
     </div>
+
+    <h2>Who I Am</h2>
+
+    <p>
+        Hi, I'm Tristan, an avid angler who has spent years fishing the lakes,
+        rivers, creeks, reservoirs, and backcountry waters of California's
+        Eastern Sierra.
+    </p>
+
+    <p>
+        I created Sierra Fishing HQ to bring the information I personally use
+        before every fishing trip into one easy-to-use location.
+    </p>
+
+</div>
 
 </div>
 
@@ -199,7 +194,6 @@ a{
 
 </div>
 
-</div>
 
 </body>
 </html>
