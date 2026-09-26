@@ -243,56 +243,17 @@ button:hover{
 
         
 
+<!-- Mobile Dropdown -->
 <div class="mobile-selector">
-    <select onchange="selectSpot(this.value)">
+    <select id="spotSelect" onchange="selectSpot(this.value)">
         <option value="">Select a Fishing Spot</option>
-
-        <option value="Whitney Portal">Whitney Portal</option>
-        <option value="Owens River">Owens River</option>
-        <option value="Lake Sabrina">Lake Sabrina</option>
-        <option value="South Lake">South Lake</option>
-        <option value="North Lake">North Lake</option>
-        <option value="Rock Creek">Rock Creek</option>
-        <option value="Convict Lake">Convict Lake</option>
-        <option value="Crowley Lake">Crowley Lake</option>
-        <option value="Hot Creek">Hot Creek</option>
-        <option value="June Lake">June Lake</option>
-        <option value="Silver Lake">Silver Lake</option>
-        <option value="Grant Lake">Grant Lake</option>
-        <option value="Virginia Lakes">Virginia Lakes</option>
-        <option value="Twin Lakes Bridgeport">Twin Lakes Bridgeport</option>
-        <option value="East Walker River">East Walker River</option>
-        <option value="Tioga Lake">Tioga Lake</option>
-        <option value="Ellery Lake">Ellery Lake</option>
-        <option value="Saddlebag Lake">Saddlebag Lake</option>
-        <option value="Diaz Lake">Diaz Lake</option>
     </select>
 </div>
 
-        <div class="location" onclick="selectSpot('Whitney Portal')">Whitney Portal</div>
-        <div class="location" onclick="selectSpot('Owens River')">Owens River</div>
-        <div class="location" onclick="selectSpot('Lake Sabrina')">Lake Sabrina</div>
-        <div class="location" onclick="selectSpot('South Lake')">South Lake</div>
-        <div class="location" onclick="selectSpot('North Lake')">North Lake</div>
-        <div class="location" onclick="selectSpot('Rock Creek')">Rock Creek</div>
-        <div class="location" onclick="selectSpot('Convict Lake')">Convict Lake</div>
-        <div class="location" onclick="selectSpot('Crowley Lake')">Crowley Lake</div>
-        <div class="location" onclick="selectSpot('Hot Creek')">Hot Creek</div>
-        <div class="location" onclick="selectSpot('June Lake')">June Lake</div>
-        <div class="location" onclick="selectSpot('Silver Lake')">Silver Lake</div>
-        <div class="location" onclick="selectSpot('Grant Lake')">Grant Lake</div>
-        <div class="location" onclick="selectSpot('Virginia Lakes')">Virginia Lakes</div>
-        <div class="location" onclick="selectSpot('Twin Lakes Bridgeport')">Twin Lakes Bridgeport</div>
-        <div class="location" onclick="selectSpot('East Walker River')">East Walker River</div>
-        <div class="location" onclick="selectSpot('Tioga Lake')">Tioga Lake</div>
-        <div class="location" onclick="selectSpot('Ellery Lake')">Ellery Lake</div>
-        <div class="location" onclick="selectSpot('Saddlebag Lake')">Saddlebag Lake</div>
-        <div class="location" onclick="selectSpot('Diaz Lake')">Diaz Lake
+<!-- Desktop/Sidebar Location List -->
+<div id="locationsList"></div>
+
 </div>
-
-    </div>
-
-
 
     <div class="main">
 
@@ -396,8 +357,6 @@ let favorites =
     JSON.parse(localStorage.getItem("favorites")) || [];
 
 const fishingSpots = {
-
-
     "Whitney Portal": {
         lat: 36.586111,
         lon: -118.241389,
@@ -681,10 +640,29 @@ function renderFavorites(){
 
 }
 
+function populateDropdown() {
+    const selectElement = document.getElementById("spotSelect");
+    const listElement = document.getElementById("locationsList");
 
+    // 1. Get sorted names
+    const sortedNames = Object.keys(fishingSpots).sort((a, b) => 
+        a.localeCompare(b)
+    );
 
-   
+    // 2. Generate <option> markup for mobile
+    const optionHTML = sortedNames
+        .map(name => `<option value="${name}">${name}</option>`)
+        .join("");
 
+    selectElement.innerHTML = `<option value="">Select a Fishing Spot</option>${optionHTML}`;
+
+    // 3. Generate <div class="location"> markup for desktop
+    const divHTML = sortedNames
+        .map(name => `<div class="location" onclick="selectSpot('${name}')">${name}</div>`)
+        .join("");
+
+    listElement.innerHTML = divHTML;
+}
 
 
 async function selectSpot(name){
@@ -912,6 +890,8 @@ function getMoonPhase(){
 }
 
 renderFavorites();
+populateDropdown();
+
 
 document.getElementById("moon").innerText =
     getMoonPhase();
