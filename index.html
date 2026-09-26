@@ -63,9 +63,15 @@ h1{
     display:none;
 }
 
-
+.mobile-favorite{
+    display:none;
+}
 
 @media (max-width: 768px){
+
+    .mobile-favorite{
+        display:block;
+    }
 
     .location{
         display:none;
@@ -293,6 +299,17 @@ button:hover{
         <div class="card">
             <h2 id="spotName">Select a Fishing Spot</h2>
         </div>
+
+        <div class="card mobile-favorite">
+
+    <button id="mobileFavoriteButton"
+            onclick="toggleFavorite()">
+
+        ⭐ Add Favorite
+
+    </button>
+
+</div>
 
         <div class="card">
             <h3>Weather</h3>
@@ -854,15 +871,22 @@ function updateFavoriteButton(){
     const button =
         document.getElementById("favoriteButton");
 
-    if(!button || !currentLocation) return;
+    const mobileButton =
+        document.getElementById("mobileFavoriteButton");
 
-    if(favorites.includes(currentLocation)){
-        button.innerText =
-            "⭐ Remove Favorite";
+    if(!currentLocation) return;
+
+    const text =
+        favorites.includes(currentLocation)
+        ? "⭐ Remove Favorite"
+        : "⭐ Add Favorite";
+
+    if(button){
+        button.innerText = text;
     }
-    else{
-        button.innerText =
-            "⭐ Add Favorite";
+
+    if(mobileButton){
+        mobileButton.innerText = text;
     }
 
 }
